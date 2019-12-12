@@ -11,7 +11,7 @@ export default class GalaxyController {
       .get("", this.getAll) //Example: api/galaxies
       .get("/:id", this.getById)
       .get("/name/:name", this.getByName)
-      .get("/:id/stars", this.getStarsByGalaxyId)
+      .get("/:id/stars", this.getStarsByGalaxyId) //Example: api/galaxies/:id/stars
       .get("/:id/planets", this.getPlanetsByGalaxyId)
       .post("", this.create) //Example: api/galaxies
       .put("/:id", this.edit) //Example: api/galaxies/l1k23l12kn4l12k412l3kn
@@ -35,7 +35,7 @@ export default class GalaxyController {
   }
   async getByName(req, res, next) {
     try {
-      let data = await galaxyService.getByName(req.body.name);
+      let data = await galaxyService.getByName(req.params.name);
       return res.send(data);
     } catch (error) {
       next(error);

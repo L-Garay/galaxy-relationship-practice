@@ -34,7 +34,7 @@ export default class PlanetController {
 
   async getByName(req, res, next) {
     try {
-      let data = await planetService.getByName(req.body.name);
+      let data = await planetService.getByName(req.params.name);
       return res.send(data);
     } catch (error) {
       next(error);

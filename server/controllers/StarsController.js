@@ -34,7 +34,7 @@ export default class StarController {
   }
   async getByName(req, res, next) {
     try {
-      let data = await starService.getByName(req.body.name);
+      let data = await starService.getByName(req.params.name);
       return res.send(data);
     } catch (error) {
       next(error);
