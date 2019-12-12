@@ -6,20 +6,24 @@ const _repository = mongoose.model("Planet", Planet);
 
 class PlanetService {
   async getByName(name) {
-    let data = await _repository.find({ name: name });
+    let data = await _repository
+      .find({ name: name })
+      .populate("galaxyId starId");
     if (!data) {
       throw new ApiError("Invalid Name Planet", 400);
     }
     return data;
   }
   async getPlanetsByStarId(starId) {
-    return await _repository.find({ starId: starId });
+    return await _repository.find({ starId: starId }).populate("galaxyId");
   }
   async getPlanetsByGalaxyId(galaxyId) {
-    return await _repository.find({ galaxyId: galaxyId });
+    return await _repository
+      .find({ galaxyId: galaxyId })
+      .populate("galaxyId starId");
   }
   async getAll() {
-    return await _repository.find({}).populate("galaxyId", "starId");
+    return await _repository.find({}).populate("galaxyId starId");
   }
   async getById(id) {
     let data = await _repository.findById(id);

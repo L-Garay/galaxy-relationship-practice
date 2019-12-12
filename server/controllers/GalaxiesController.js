@@ -9,10 +9,10 @@ export default class GalaxyController {
       .Router()
       //NOTE  each route gets registered as a .get, .post, .put, or .delete, the first parameter of each method is a string to be concatinated onto the base url registered with the route in main. The second parameter is the method that will be run when this route is hit.
       .get("", this.getAll) //Example: api/galaxies
-      .get("/:id", this.getById)
-      .get("/name/:name", this.getByName)
-      .get("/:id/stars", this.getStarsByGalaxyId) //Example: api/galaxies/:id/stars
-      .get("/:id/planets", this.getPlanetsByGalaxyId)
+      .get("/:id", this.getById) //Example: api/galaxies/113215345646
+      .get("/name/:name", this.getByName) //Example: api/galaxies/name/galaxyname
+      .get("/:id/stars", this.getStarsByGalaxyId) //Example: api/galaxies/galaxy:id/stars
+      .get("/:id/planets", this.getPlanetsByGalaxyId) //Example: api/galaxies/galaxy:id/planets
       .post("", this.create) //Example: api/galaxies
       .put("/:id", this.edit) //Example: api/galaxies/l1k23l12kn4l12k412l3kn
       .delete("/:id", this.delete); //Example: api/galaxies/l1k23l12kn4l12k412l3kn
