@@ -9,7 +9,7 @@ export default class PlanetController {
 
       .get("", this.getAll)
       .get("/:id", this.getById)
-
+      .get("/name/:name", this.getByName)
       .post("", this.create)
       .put("/:id", this.edit)
       .delete("/:id", this.delete);
@@ -32,6 +32,14 @@ export default class PlanetController {
     }
   }
 
+  async getByName(req, res, next) {
+    try {
+      let data = await planetService.getByName(req.body.name);
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
   async create(req, res, next) {
     try {
       let data = await planetService.create(req.body);

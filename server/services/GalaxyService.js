@@ -5,6 +5,13 @@ import ApiError from "../utils/ApiError";
 const _repository = mongoose.model("Galaxy", Galaxy);
 
 class GalaxyService {
+  async getByName(name) {
+    let data = await _repository.find({ name: name });
+    if (!data) {
+      throw new ApiError("Invalid Name Galaxy", 400);
+    }
+    return data;
+  }
   async getAll() {
     return await _repository.find({});
   }

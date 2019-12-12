@@ -1,6 +1,7 @@
 import express from "express";
 import galaxyService from "../services/GalaxyService";
 import starService from "../services/StarService";
+import planetService from "../services/PlanetService";
 
 export default class GalaxyController {
   constructor() {
@@ -9,7 +10,9 @@ export default class GalaxyController {
       //NOTE  each route gets registered as a .get, .post, .put, or .delete, the first parameter of each method is a string to be concatinated onto the base url registered with the route in main. The second parameter is the method that will be run when this route is hit.
       .get("", this.getAll) //Example: api/galaxies
       .get("/:id", this.getById)
+      .get("/name/:name", this.getByName)
       .get("/:id/stars", this.getStarsByGalaxyId)
+      .get("/:id/planets", this.getPlanetsByGalaxyId)
       .post("", this.create) //Example: api/galaxies
       .put("/:id", this.edit) //Example: api/galaxies/l1k23l12kn4l12k412l3kn
       .delete("/:id", this.delete); //Example: api/galaxies/l1k23l12kn4l12k412l3kn
@@ -30,9 +33,26 @@ export default class GalaxyController {
       next(error);
     }
   }
+  async getByName(req, res, next) {
+    try {
+      let data = await galaxyService.getByName(req.body.name);
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
   async getStarsByGalaxyId(req, res, next) {
     try {
       let data = await starService.getStarsByGalaxyId(req.body.galaxyId);
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getPlanetsByGalaxyId(req, res, next) {
+    try {
+      let data = await planetService.getPlanetsByGalaxyId(req.body.galaxyId);
       return res.send(data);
     } catch (error) {
       next(error);

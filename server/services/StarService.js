@@ -6,6 +6,13 @@ import galaxyService from "./GalaxyService";
 const _repository = mongoose.model("Star", Star);
 
 class StarService {
+  async getByName(name) {
+    let data = await _repository.find({ name: name });
+    if (!data) {
+      throw new ApiError("Invalid Name Star", 400);
+    }
+    return data;
+  }
   async getStarsByGalaxyId(galaxyId) {
     let data = await _repository.find({ galaxyId: galaxyId });
     return data;

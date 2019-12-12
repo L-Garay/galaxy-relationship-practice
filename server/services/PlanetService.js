@@ -5,6 +5,19 @@ import ApiError from "../utils/ApiError";
 const _repository = mongoose.model("Planet", Planet);
 
 class PlanetService {
+  async getByName(name) {
+    let data = await _repository.find({ name: name });
+    if (!data) {
+      throw new ApiError("Invalid Name Planet", 400);
+    }
+    return data;
+  }
+  async getPlanetsByStarId(starId) {
+    return await _repository.find({ starId: starId });
+  }
+  async getPlanetsByGalaxyId(galaxyId) {
+    return await _repository.find({ galaxyId: galaxyId });
+  }
   async getAll() {
     return await _repository.find({}).populate("galaxyId", "starId");
   }
